@@ -1,28 +1,32 @@
 var db = require("./connection.js");
 
-run_command = (command) => {
-    db.query(command, (err, result) => {
-        if (err)
-            console.log(err);
-        console.log(result);
-    });
-}
-
 var orm = {
 
-    select_all: () => {
-        command = "SELECT * FROM burgers;";
-        run_command(command);
+    select_all: callback=>{
+
+        var query = "SELECT * FROM burgers;";
+        db.query(query, (err, result) => {
+            if (err) throw err;
+            // console.log("Sel all",result,callback,"\n\n")
+            return callback(result);
+        });
     },
 
     insert_one: (name) => {
-        command = `INSERT INTO BURGERS(burger_name) VALUE("${name}")`;
-        run_command(command);
+        var query = "INSERT INTO BURGERS(burger_name) VALUE(?)";
+        db.query(query, [name], (err, result) => {
+            if (err) throw err;
+            console.log(result);
+        });
     },
 
     update_one: (id) => {
-        command = `UPDATE BURGERS SET devoured = true WHERE id = ${id}`
-        run_command(command);
+        var query = "UPDATE BURGERS SET devoured = true WHERE id = ?"
+        db.query(query, [id], (err,result) => {
+            if(err) throw(err);
+            console.log(result);
+        });
     }
 }
+
 module.exports = orm;

@@ -3,8 +3,12 @@ var orm = require("../config/orm.js");
 
 
 var burger = {
-    list: () =>{
-        orm.select_all();
+    list: function (callback){
+        // function success(result) {
+            //console.log(result);
+            // return result;
+        // }
+        return orm.select_all(callback)
     },
     add: (burger) =>{
         orm.insert_one(burger);

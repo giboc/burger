@@ -1,2 +1,48 @@
+<div class="jumbotron font-weight-bold text-center"> Eat </div>
 
-<h1>{{burger}}</h1>
+<div class="container">
+    <div class="row">
+
+        <script><h1>{{burger}}</h1></script>
+        {{!-- <table class="table" id="burger-table">
+            <thead>
+                <th scope="col">FEAST NOW</th>
+            </thead>
+
+            <tbody>
+                {{#each burger}}
+                <tr>{{this}}</tr>
+                {{/each}}
+            </tbody>
+        </table> --}}
+        {{!-- <ul class="burger">
+            {{#each val}}
+            <li>{{this}}</li>
+            {{/each}}
+        </ul> --}}
+
+    </div>
+    <div class="row">
+        <form method="POST">
+            <div class="form-group">
+                <label for="Burger">The Burger Gods Demand feasting</label>
+                <input type="text" class="form-control" id="burger-type">
+            </div>
+            <button type="submit" class="btn btn-primary">EAT</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    $(document).submit((event)=>{
+        event.preventDefault(); 
+        var burger_json = {
+            burger: $("#burger-type").val()
+        }
+        $.post("/", burger_json);
+        $("#burger-type").val("");
+        
+
+    })
+
+</script>

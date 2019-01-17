@@ -15,34 +15,7 @@
 </head>
 
 <body>
-    <div class="jumbotron font-weight-bold text-center"> Eat </div>
-    <div class="container">
-        <div class="row">{{{body}}}</div>
-        <div class="row">
-            <form method="POST">
-                <div class="form-group">
-                    <label for="Burger">What kind?</label>
-                    <input type="text" class="form-control" id="burger-type">
-                </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-            </form>
-        </div>
-    </div>
-
+    {{{body}}}
 </body>
-
-<script>
-    $(document).submit((event)=>{
-        event.preventDefault(); 
-        console.log($("#burger-type").val());
-        var burger_json = {
-            burger: $("#burger-type").val()
-        }
-        console.log(burger_json);
-        $.post("/", burger_json);
-
-    })
-
-</script>
 
 </html>
