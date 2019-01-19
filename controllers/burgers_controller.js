@@ -4,33 +4,36 @@ var burgers = require("../models/burger.js")
 
 var app = express();
 
-var burger = []
-var test = [
-{val: [1,2,3,4]},
-{burger: "burger test"}
+var burger = [
+    {
+        burger: ""
+    }
+]
+var burger_list = [
+    {
+        items: []
 
+    }
 ]
 
-module.exports = (app) =>{
+module.exports = (app) => {
     app.get("/", (req, res) => {
-        res.render("index",test);
+        res.render("index", burger_list[0]);
     });
 
     app.post("/", (req, res) => {
-        // console.log(req.body);
-        // burgers.add(req.body.burger);
-        // console.log(burgers.list());
-        
-        burgers.list(function(result){
-            result.forEach( (name)=>{
-                burger.push(name.burger_name);
+        burgers.add(req.body.burger);
+        var burger_list = [
+            {
+                items: []
+            }
+        ]
+        burgers.list(function (result) {
+            result.forEach((name) => {
+                burger_list[0].items.push(name.burger_name);
             });
-            console.log(burger);
-            res.render("index",test);
+            res.redirect("/");
         })
-        
-        
     });
-        
 }
 

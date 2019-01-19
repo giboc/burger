@@ -1,9 +1,15 @@
-<div class="jumbotron font-weight-bold text-center"> Eat </div>
+<div class="jumbotron font-weight-bold text-center"> EAT </div>
 
 <div class="container">
     <div class="row">
 
-        <script><h1>{{burger}}</h1></script>
+        <div class="col" id="ready">
+            <p>left</p>
+        </div>
+        <div class="col" id="eaten">
+            <p>right</p>
+        </div>
+        <h1>{{foo}}</h1>
         {{!-- <table class="table" id="burger-table">
             <thead>
                 <th scope="col">FEAST NOW</th>
@@ -15,11 +21,11 @@
                 {{/each}}
             </tbody>
         </table> --}}
-        {{!-- <ul class="burger">
-            {{#each val}}
+        <ul class="burger">
+            {{#each items}}
             <li>{{this}}</li>
             {{/each}}
-        </ul> --}}
+        </ul>
 
     </div>
     <div class="row">
@@ -28,21 +34,30 @@
                 <label for="Burger">The Burger Gods Demand feasting</label>
                 <input type="text" class="form-control" id="burger-type">
             </div>
-            <button type="submit" class="btn btn-primary">EAT</button>
+            <button type="submit" id="prepare" class="btn btn-primary">PREPARE</button>
         </form>
     </div>
 </div>
 
 <script>
-    $(document).submit((event)=>{
-        event.preventDefault(); 
+
+    var id = 0;
+    $("#prepare").click((event) => {
+        event.preventDefault();
+        console.log($("#burger-type").val());
+        
+        $("#ready").append('<div class = "row"><span class="text-center">'
+                           +$("#burger-type").val()+'</span>'
+                           +'<button type="button" class="btn btn-primary btn-sm burger">DEVOUR</button></div>');
+        $("#burger-type").val("");
+    });
+
+    $(document).on('click', ".burger", (event)=>{
         var burger_json = {
-            burger: $("#burger-type").val()
+            burger: event.target.parentElement.childNodes[0].innerText
         }
         $.post("/", burger_json);
-        $("#burger-type").val("");
+        event.target.parentElement.remove();
+    });
         
-
-    })
-
 </script>
