@@ -4,11 +4,6 @@ var burgers = require("../models/burger.js")
 
 var app = express();
 
-var burger = [
-    {
-        burger: ""
-    }
-]
 var burger_list = [{
     burger_to_eat: [],
     id: []
@@ -21,13 +16,12 @@ module.exports = (app) => {
         };
         burgers.list(function (result) {
             result.forEach((burger_to_eat) => {
-                if (!burger_to_eat.devoured) {
-                    var burger = {
-                        name: burger_to_eat.burger_name,
-                        id: burger_to_eat.id
-                    }
-                    burger_list.order.push(burger);
+                var burger = {
+                    name: burger_to_eat.burger_name,
+                    id: burger_to_eat.id,
+                    devoured: burger_to_eat.devoured
                 }
+                burger_list.order.push(burger);
             });
             res.render("index", burger_list);
         })
@@ -43,7 +37,7 @@ module.exports = (app) => {
                 });
             })
         }
-        if(req.body.action === "eat")
+        if (req.body.action === "eat")
             burgers.eat(req.body.data);
     });
 }

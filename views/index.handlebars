@@ -2,18 +2,24 @@
 
 <div class="container">
     <div class="row">
-
         <div class="col" id="ready">
-                {{#each order}}
-                <div class = "row">
-                    <span class="text-center">{{this.name}}</span>
-                    <button type="button" class="btn btn-primary btn-sm burger" id="{{this.id}}">DEVOUR</button>
-                </div>
-                
-                {{/each}}
+            {{#each order}}
+            {{#unless this.devoured}}
+            <div class="row">
+                <span class="text-center">{{this.name}}</span>
+                <button type="button" class="btn btn-primary btn-sm burger" id="{{this.id}}">DEVOUR</button>
+            </div>
+            {{/unless}}
+            {{/each}}
         </div>
         <div class="col" id="eaten">
-            <p>right</p>
+            {{#each order}}
+            {{#if this.devoured}}
+            <div class="row">
+                <span class="text-center">{{this.name}}</span>
+            </div>
+            {{/if}}
+            {{/each}}
         </div>
     </div>
     <div class="row">
@@ -28,7 +34,7 @@
 </div>
 
 <script>
-    
+
     $("#prepare").click((event) => {
         event.preventDefault();
         console.log($("#burger-type").val());
@@ -41,6 +47,7 @@
         };
         $.post("/", burger_json);
         $("#burger-type").val("");
+        location.reload();  
     });
 
     $(document).on('click', ".burger", (event) => {
@@ -51,6 +58,7 @@
         };
         $.post("/", burger_json);
         event.target.parentElement.remove();
+        location.reload();
     });
 
 </script>
