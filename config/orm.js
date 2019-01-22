@@ -22,11 +22,11 @@ var orm = {
 
     update_one: (id) => {
         var query = "UPDATE BURGERS SET devoured = true WHERE id = ?"
+        console.log(id);
         db.query(query, [id], (err,result) => {
             if(err) throw(err);
             console.log(result);
         });
     }
 }
-
 module.exports = orm;

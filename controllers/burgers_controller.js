@@ -9,31 +9,42 @@ var burger = [
         burger: ""
     }
 ]
-var burger_list = [
-    {
-        items: []
-
-    }
-]
+var burger_list = [{
+    burger_to_eat: [],
+    id: []
+}]
 
 module.exports = (app) => {
     app.get("/", (req, res) => {
-        res.render("index", burger_list[0]);
+        burger_list = {
+            order: []
+        };
+        burgers.list(function (result) {
+            result.forEach((burger_to_eat) => {
+                if (!burger_to_eat.devoured) {
+                    var burger = {
+                        name: burger_to_eat.burger_name,
+                        id: burger_to_eat.id
+                    }
+                    burger_list.order.push(burger);
+                }
+            });
+            res.render("index", burger_list);
+        })
     });
 
     app.post("/", (req, res) => {
-        burgers.add(req.body.burger);
-        var burger_list = [
-            {
-                items: []
-            }
-        ]
-        burgers.list(function (result) {
-            result.forEach((name) => {
-                burger_list[0].items.push(name.burger_name);
-            });
-            res.redirect("/");
-        })
+        console.log(req.body);
+        if (req.body.action === "add") {
+            burgers.add(req.body.data);
+            burgers.list(function (result) {
+                result.forEach((name) => {
+                    burger_list.order.push(name.burger_name);
+                });
+            })
+        }
+        if(req.body.action === "eat")
+            burgers.eat(req.body.data);
     });
 }
 

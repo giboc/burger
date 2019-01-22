@@ -4,29 +4,17 @@
     <div class="row">
 
         <div class="col" id="ready">
-            <p>left</p>
+                {{#each order}}
+                <div class = "row">
+                    <span class="text-center">{{this.name}}</span>
+                    <button type="button" class="btn btn-primary btn-sm burger" id="{{this.id}}">DEVOUR</button>
+                </div>
+                
+                {{/each}}
         </div>
         <div class="col" id="eaten">
             <p>right</p>
         </div>
-        <h1>{{foo}}</h1>
-        {{!-- <table class="table" id="burger-table">
-            <thead>
-                <th scope="col">FEAST NOW</th>
-            </thead>
-
-            <tbody>
-                {{#each burger}}
-                <tr>{{this}}</tr>
-                {{/each}}
-            </tbody>
-        </table> --}}
-        <ul class="burger">
-            {{#each items}}
-            <li>{{this}}</li>
-            {{/each}}
-        </ul>
-
     </div>
     <div class="row">
         <form method="POST">
@@ -40,24 +28,29 @@
 </div>
 
 <script>
-
-    var id = 0;
+    
     $("#prepare").click((event) => {
         event.preventDefault();
         console.log($("#burger-type").val());
-        
         $("#ready").append('<div class = "row"><span class="text-center">'
-                           +$("#burger-type").val()+'</span>'
-                           +'<button type="button" class="btn btn-primary btn-sm burger">DEVOUR</button></div>');
+            + $("#burger-type").val() + '</span>'
+            + '<button type="button" class="btn btn-primary btn-sm burger">DEVOUR</button></div>');
+        var burger_json = {
+            action: "add",
+            data: $("#burger-type").val()
+        };
+        $.post("/", burger_json);
         $("#burger-type").val("");
     });
 
-    $(document).on('click', ".burger", (event)=>{
+    $(document).on('click', ".burger", (event) => {
+        console.log(event.target.id);
         var burger_json = {
-            burger: event.target.parentElement.childNodes[0].innerText
-        }
+            action: "eat",
+            data: event.target.id
+        };
         $.post("/", burger_json);
         event.target.parentElement.remove();
     });
-        
+
 </script>

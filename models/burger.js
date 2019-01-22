@@ -4,10 +4,6 @@ var orm = require("../config/orm.js");
 
 var burger = {
     list: function (callback){
-        // function success(result) {
-            //console.log(result);
-            // return result;
-        // }
         return orm.select_all(callback)
     },
     add: (burger) =>{
