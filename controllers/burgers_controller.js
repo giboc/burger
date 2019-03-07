@@ -31,11 +31,6 @@ module.exports = (app) => {
         console.log(req.body);
         if (req.body.action === "add") {
             burgers.add(req.body.data);
-            burgers.list(function (result) {
-                result.forEach((name) => {
-                    burger_list.order.push(name.burger_name);
-                });
-            })
         }
         if (req.body.action === "eat")
             burgers.eat(req.body.data);

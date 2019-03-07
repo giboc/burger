@@ -1,28 +1,7 @@
 <div class="jumbotron font-weight-bold text-center"> EAT </div>
 
 <div class="container">
-    <div class="row">
-        <div class="col" id="ready">
-            {{#each order}}
-            {{#unless this.devoured}}
-            <div class="row">
-                <span class="text-center">{{this.name}}</span>
-                <button type="button" class="btn btn-primary btn-sm burger" id="{{this.id}}">DEVOUR</button>
-            </div>
-            {{/unless}}
-            {{/each}}
-        </div>
-        <div class="col" id="eaten">
-            {{#each order}}
-            {{#if this.devoured}}
-            <div class="row">
-                <span class="text-center">{{this.name}}</span>
-            </div>
-            {{/if}}
-            {{/each}}
-        </div>
-    </div>
-    <div class="row">
+    <div class="row text-center d-flex justify-content-center">
         <form method="POST">
             <div class="form-group">
                 <label for="Burger">The Burger Gods Demand feasting</label>
@@ -31,6 +10,31 @@
             <button type="submit" id="prepare" class="btn btn-primary">PREPARE</button>
         </form>
     </div>
+    
+    <div class="row pt-5">
+        <div class="col" id="ready">
+            <p>The sacrifice has been prepared.</p>
+            {{#each order}}
+            {{#unless this.devoured}}
+            <div class="row">
+                <span class="mr-auto">{{this.name}}</span>
+                <button type="button" class="btn btn-primary btn-sm burger" id="{{this.id}}">DEVOUR</button>
+            </div>
+            {{/unless}}
+            {{/each}}
+        </div>
+        <div class="col" id="eaten">
+            <p class="text-center "><u>The past tributes</u></p>
+            {{#each order}}
+            {{#if this.devoured}}
+            <div class="row d-flex justify-content-center">
+                <span class="text-center">{{this.name}}</span>
+            </div>
+            {{/if}}
+            {{/each}}
+        </div>
+    </div>
+    
 </div>
 
 <script>
