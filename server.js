@@ -1,11 +1,9 @@
- var express = require("express");
+var express = require("express");
 var path = require("path");
 const PORT = 8080;
 
 var exphbs  = require('express-handlebars');
 
-
- 
 var app = express();
 
 app.use(express.urlencoded({ extended: true }));
