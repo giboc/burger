@@ -13,7 +13,7 @@ var orm = {
     },
 
     insert_one: (name) => {
-        var query = "INSERT INTO BURGERS(burger_name) VALUE(?)";
+        var query = "INSERT INTO burgers(burger_name) VALUE(?)";
         db.query(query, [name], (err, result) => {
             if (err) throw err;
             console.log(result);
@@ -21,7 +21,7 @@ var orm = {
     },
 
     update_one: (id) => {
-        var query = "UPDATE BURGERS SET devoured = true WHERE id = ?"
+        var query = "UPDATE burgers SET devoured = true WHERE id = ?"
         db.query(query, [id], (err,result) => {
             if(err) throw(err);
             console.log(result);
